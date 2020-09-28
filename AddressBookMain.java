@@ -15,10 +15,11 @@ public class AddressBookMain {
 		System.out.println("Welcome to Address Book Program");
 		Scanner sc = new Scanner(System.in);
 		
-		//To add a contact
-		while(option>0 && option<3) {
-			System.out.println("Enter your option\n1. Add Contact\n2. Edit Contact\n3. Exit");
+		
+		while(option>0 && option<4) {
+			System.out.println("Enter your option\n1. Add Contact\n2. Edit Contact\n3. Delete Contact\n4. Exit");
 			option = sc.nextInt();
+			//To add a contact
 			if(option==1) {
 				System.out.println("Enter the details to add contact");
 				System.out.println("Enter First Name");
@@ -42,6 +43,7 @@ public class AddressBookMain {
 				AddressBook obj = new AddressBook(firstName, lastName, address, city, state, zip, phoneNumber, email);
 				person.addContact(obj);
 			}
+			//To edit a contact
 			else if(option==2) {
 				System.out.println("Enter the details to edit contact");
 				System.out.println("Enter First Name");
@@ -63,7 +65,16 @@ public class AddressBookMain {
 				sc.nextLine();
 				String email = sc.nextLine();
 				person.editContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-				
+			}
+			//To delete a contact
+			else if(option==3) {
+				System.out.println("Enter the details to delete contact");
+				System.out.println("Enter First Name");
+				sc.nextLine();
+				String firstName = sc.nextLine();
+				System.out.println("Enter Last Name");
+				String lastName = sc.nextLine();
+				person.deleteContact(firstName, lastName);
 			}
 		}
 		sc.close();
