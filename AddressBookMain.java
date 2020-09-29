@@ -41,7 +41,11 @@ public class AddressBookMain {
 				sc.nextLine();
 				String email = sc.nextLine();
 				AddressBook obj = new AddressBook(firstName, lastName, address, city, state, zip, phoneNumber, email);
-				person.addContact(obj);
+				int status = person.addContact(firstName,lastName,obj); 
+				if(status==1)
+					System.out.println("Contact Added Successfully");
+				else
+					System.out.println("Could not add the contact");
 			}
 			//To edit a contact
 			else if(option==2) {
@@ -64,7 +68,11 @@ public class AddressBookMain {
 				System.out.println("Enter email");
 				sc.nextLine();
 				String email = sc.nextLine();
-				person.editContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+				int status = person.editContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+				if(status==1)
+					System.out.println("Contact updated Successfully");
+				else
+					System.out.println("There is no contact with name "+firstName+" "+lastName);
 			}
 			//To delete a contact
 			else if(option==3) {
@@ -74,7 +82,11 @@ public class AddressBookMain {
 				String firstName = sc.nextLine();
 				System.out.println("Enter Last Name");
 				String lastName = sc.nextLine();
-				person.deleteContact(firstName, lastName);
+				int status = person.deleteContact(firstName, lastName);
+				if(status==1)
+					System.out.println("Contact Deleted Successfully");
+				else
+					System.out.println("There is no contact with name "+firstName+" "+lastName);
 			}
 		}
 		sc.close();
