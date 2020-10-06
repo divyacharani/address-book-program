@@ -1,79 +1,43 @@
 package com.bridgelabz.addressBookProgram;
 
+import java.util.*;
+
 public class AddressBook {
-	
-	//Attributes
-	private String firstName;
-	private String lastName;
-	private String address;
-	private String city;
-	private String state;
-	private int zip;
-	private long phoneNumber;
-	private String email;
-	
-	//Constructor
-	public AddressBook(String firstName, String lastName, String address, String city, String state, int zip,
-			long phoneNumber, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.zip = zip;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
+
+	private Map<String, Contact> nameToContact = new HashMap<String, Contact>();
+
+	// Setters and Getters
+	public Map<String, Contact> getNameToContact() {
+		return nameToContact;
+	}
+
+	public void setNameToContact(Map<String, Contact> nameToContact) {
+		this.nameToContact = nameToContact;
+	}
+
+	// Method to add a contact
+	public void addContact(Contact obj) {
+		nameToContact.put(obj.getFirstName() + " " + obj.getLastName(), obj);
+	}
+
+	// Method to edit a contact
+	public void editContact(Contact obj) {
+		nameToContact.replace(obj.getFirstName() + " " + obj.getLastName(), obj);
+	}
+
+	// Method to delete a contact
+	public void deleteContact(String firstName, String lastName) {
+		nameToContact.remove(firstName + " " + lastName);
 	}
 	
-	//Setters and Getters
-	public String getFirstName() {
-		return firstName;
+	//Method to view all contacts
+	public List<Contact> viewContacts() {
+		List<Contact> contactList = new ArrayList<Contact>();
+		for (String str : nameToContact.keySet()) {
+			contactList.add(nameToContact.get(str));
+		}
+		return contactList;
+
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public int getZip() {
-		return zip;
-	}
-	public void setZip(int zip) {
-		this.zip = zip;
-	}
-	public long getPhoneNumber() {
-		return phoneNumber;
-	}
-	public void setPhoneNumber(long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 
 }
