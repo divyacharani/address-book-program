@@ -1,10 +1,7 @@
 package com.bridgelabz.addressBookProgram;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
 
@@ -135,4 +132,25 @@ public class AddressBookMain {
 		return (new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email));
 	}
 
+	// Method to search persons across multiple address books in a state
+	private static List<Contact> searchByState(Map<String, AddressBook> dictionary, String state) {
+		List<Contact> personsList = new ArrayList<Contact>();
+		for (AddressBook addressbookObj : dictionary.values()) {
+			personsList.addAll(addressbookObj.getContactList().stream()
+					.filter(contact -> contact.getState().equals(state)).collect(Collectors.toList()));
+		}
+		return personsList;
+
+	}
+
+	// Method to search persons across multiple address books in a city
+	private static List<Contact> searchByCity(Map<String, AddressBook> dictionary, String cityName) {
+		List<Contact> personsList = new ArrayList<Contact>();
+		for (AddressBook addressbookObj : dictionary.values()) {
+			personsList.addAll(addressbookObj.getContactList().stream()
+					.filter(contact -> contact.getState().equals(cityName)).collect(Collectors.toList()));
+		}
+		return personsList;
+
+	}
 }

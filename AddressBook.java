@@ -5,6 +5,14 @@ import java.util.*;
 public class AddressBook {
 
 	private List<Contact> contactList = new ArrayList<Contact>();
+	
+	public List<Contact> getContactList() {
+		return contactList;
+	}
+
+	public void setContactList(List<Contact> contactList) {
+		this.contactList = contactList;
+	}
 
 	// Method to add a contact
 	public boolean addContact(Contact obj) {
