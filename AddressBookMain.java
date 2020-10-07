@@ -15,9 +15,9 @@ public class AddressBookMain {
 		Map<String, AddressBook> dictionary = new HashMap<String, AddressBook>();
 
 		int option = 1;
-		while (option > 0 && option < 5) {
+		while (option > 0 && option < 7) {
 			System.out.println(
-					"Enter your option\n1. View all  AddressBooks\n2. Add  New AddressBook\n3. Edit AddressBook\n4. Delete AddressBook\n5. Exit");
+					"Enter your option\n1. View all  AddressBooks\n2. Add  New AddressBook\n3. Edit AddressBook\n4. Delete AddressBook\n5. Search persons by City\n6. Search persons by State\n7. Exit");
 			option = sc.nextInt();
 			switch (option) {
 			// To view all Address Books
@@ -48,6 +48,24 @@ public class AddressBookMain {
 				sc.nextLine();
 				String deleteName = sc.nextLine();
 				dictionary.remove(deleteName);
+				break;
+			// To Search persons by City
+			case 5:
+				System.out.println("Enter name of the city to search");
+				sc.nextLine();
+				String cityName = sc.nextLine();
+				List<Contact> personsListByCity = searchByCity(dictionary, cityName);
+				personsListByCity.forEach(contact -> System.out.println(contact));
+				break;
+				// To Search persons by State
+			case 6:
+				System.out.println("Enter name of the state to search");
+				sc.nextLine();
+				String stateName = sc.nextLine();
+				List<Contact> personsListByState = searchByState(dictionary, stateName);
+				personsListByState.forEach(contact -> System.out.println(contact));
+				break;
+			case 7:
 				break;
 			default:
 				System.out.println("Invalid Entry!!");
@@ -100,6 +118,8 @@ public class AddressBookMain {
 					System.out.println("Contact Deleted Successfully");
 				else
 					System.out.println("There is no contact with entered name");
+				break;
+			case 5:
 				break;
 			default:
 				System.out.println("Invalid Entry!!");

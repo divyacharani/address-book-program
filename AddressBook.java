@@ -17,7 +17,7 @@ public class AddressBook {
 	// Method to add a contact
 	public boolean addContact(Contact obj) {
 		Contact contactObject = contactList.stream().filter(contact -> obj.equals(contact)).findAny().orElse(null);
-		if (contactObject != null)
+		if (contactObject == null)
 			contactList.add(obj);
 		else
 			return false;
