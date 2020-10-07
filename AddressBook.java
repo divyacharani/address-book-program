@@ -4,38 +4,43 @@ import java.util.*;
 
 public class AddressBook {
 
-	private Map<String, Contact> nameToContact = new HashMap<String, Contact>();
-
-	// Setters and Getters
-	public Map<String, Contact> getNameToContact() {
-		return nameToContact;
-	}
-
-	public void setNameToContact(Map<String, Contact> nameToContact) {
-		this.nameToContact = nameToContact;
-	}
+	private List<Contact> contactList = new ArrayList<Contact>();
 
 	// Method to add a contact
-	public void addContact(Contact obj) {
-		nameToContact.put(obj.getFirstName() + " " + obj.getLastName(), obj);
+	public boolean addContact(Contact obj) {
+		Contact contactObject = contactList.stream().filter(contact -> obj.equals(contact)).findAny().orElse(null);
+		if (contactObject != null)
+			contactList.add(obj);
+		else
+			return false;
+		return true;
 	}
 
 	// Method to edit a contact
-	public void editContact(Contact obj) {
-		nameToContact.replace(obj.getFirstName() + " " + obj.getLastName(), obj);
+	public boolean editContact(Contact obj) {
+		Contact contactObject = contactList.stream().filter(contact -> obj.equals(contact)).findAny().orElse(null);
+		if (contactObject == null)
+			return false;
+		else
+			contactList.set(contactList.indexOf(contactObject), obj);
+		return true;
+
 	}
 
 	// Method to delete a contact
-	public void deleteContact(String firstName, String lastName) {
-		nameToContact.remove(firstName + " " + lastName);
+	public boolean deleteContact(String name) {
+		Contact contactObject = contactList.stream()
+				.filter(contact -> name.equals(contact.getFirstName() + " " + contact.getLastName())).findAny()
+				.orElse(null);
+		if (contactObject == null)
+			return false;
+		else
+			contactList.remove(contactObject);
+		return true;
 	}
-	
-	//Method to view all contacts
+
+	// Method to view all contacts
 	public List<Contact> viewContacts() {
-		List<Contact> contactList = new ArrayList<Contact>();
-		for (String str : nameToContact.keySet()) {
-			contactList.add(nameToContact.get(str));
-		}
 		return contactList;
 
 	}
