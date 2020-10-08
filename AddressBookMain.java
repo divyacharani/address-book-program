@@ -89,9 +89,9 @@ public class AddressBookMain {
 	private static void AddressBookOperations(AddressBook addressBookObj, Scanner sc) {
 
 		int option = 1;
-		while (option > 0 && option < 5) {
+		while (option > 0 && option < 6) {
 			System.out.println(
-					"Enter your option\n1. View all Contacts\n2. Add Contact\n3. Edit Contact\n4. Delete Contact\n5. Exit");
+					"Enter your option\n1. View all Contacts\n2. Add Contact\n3. Edit Contact\n4. Delete Contact\n5. Sort By Person Name\n6. Exit");
 			option = sc.nextInt();
 			switch (option) {
 			// To view all Contacts
@@ -132,6 +132,11 @@ public class AddressBookMain {
 					System.out.println("There is no contact with entered name");
 				break;
 			case 5:
+				List<Contact> sortedByNameList = new ArrayList<Contact>();
+				sortedByNameList = addressBookObj.sortByName();
+				sortedByNameList.forEach(contact -> System.out.println(contact));
+				break;
+			case 6:
 				break;
 			default:
 				System.out.println("Invalid Entry!!");
