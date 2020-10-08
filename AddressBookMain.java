@@ -55,7 +55,13 @@ public class AddressBookMain {
 				sc.nextLine();
 				String cityName = sc.nextLine();
 				List<Contact> personsListByCity = searchByCity(dictionary, cityName);
+				long countByCity = personsListByCity.stream().count();
+				if(countByCity!=0) {
+				System.out.println("Number of persons in the city "+cityName+" : "+countByCity);
 				personsListByCity.forEach(contact -> System.out.println(contact));
+				}
+				else
+					System.out.println("There are no contacts with city name "+cityName);
 				break;
 				// To Search persons by State
 			case 6:
@@ -63,7 +69,13 @@ public class AddressBookMain {
 				sc.nextLine();
 				String stateName = sc.nextLine();
 				List<Contact> personsListByState = searchByState(dictionary, stateName);
+				long countByState = personsListByState.stream().count();
+				if(countByState!=0) {
+				System.out.println("Number of persons in the state "+stateName+" are "+countByState);
 				personsListByState.forEach(contact -> System.out.println(contact));
+				}
+				else
+					System.out.println("There are no contacts with state name "+stateName);
 				break;
 			case 7:
 				break;
@@ -157,7 +169,7 @@ public class AddressBookMain {
 		List<Contact> personsList = new ArrayList<Contact>();
 		for (AddressBook addressbookObj : dictionary.values()) {
 			personsList.addAll(addressbookObj.getContactList().stream()
-					.filter(contact -> contact.getState().equals(state)).collect(Collectors.toList()));
+					.filter(contact -> contact.getState().equalsIgnoreCase(state)).collect(Collectors.toList()));
 		}
 		return personsList;
 
@@ -168,7 +180,7 @@ public class AddressBookMain {
 		List<Contact> personsList = new ArrayList<Contact>();
 		for (AddressBook addressbookObj : dictionary.values()) {
 			personsList.addAll(addressbookObj.getContactList().stream()
-					.filter(contact -> contact.getState().equals(cityName)).collect(Collectors.toList()));
+					.filter(contact -> contact.getCity().equalsIgnoreCase(cityName)).collect(Collectors.toList()));
 		}
 		return personsList;
 
