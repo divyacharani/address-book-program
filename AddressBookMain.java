@@ -91,7 +91,7 @@ public class AddressBookMain {
 		int option = 1;
 		while (option > 0 && option < 6) {
 			System.out.println(
-					"Enter your option\n1. View all Contacts\n2. Add Contact\n3. Edit Contact\n4. Delete Contact\n5. Sort By Person Name\n6. Exit");
+					"Enter your option\n1. View all Contacts\n2. Add Contact\n3. Edit Contact\n4. Delete Contact\n5. Sort Contacts\n6. Exit");
 			option = sc.nextInt();
 			switch (option) {
 			// To view all Contacts
@@ -132,9 +132,18 @@ public class AddressBookMain {
 					System.out.println("There is no contact with entered name");
 				break;
 			case 5:
-				List<Contact> sortedByNameList = new ArrayList<Contact>();
-				sortedByNameList = addressBookObj.sortByName();
-				sortedByNameList.forEach(contact -> System.out.println(contact));
+				System.out.println("Enter your option\n1. Sort by Name\n2. Sort by zip\n3. Sort by city\n4. Sort by state");
+				int choice = sc.nextInt();
+				List<Contact> sortedList = new ArrayList<Contact>();
+				if(choice == 1)
+					sortedList = addressBookObj.sortByName();
+				else if(choice==2)
+					sortedList = addressBookObj.sortByZip();
+				else if(choice==3)
+					sortedList = addressBookObj.sortByCity();
+				else if(choice==4)
+					sortedList = addressBookObj.sortByState();
+				sortedList.forEach(contact -> System.out.println(contact));
 				break;
 			case 6:
 				break;
