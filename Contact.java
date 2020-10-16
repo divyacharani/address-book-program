@@ -24,6 +24,10 @@ public class Contact {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
+	
+	public Contact() {
+		
+	}
 
 	// Setters and Getters
 	public String getFirstName() {
@@ -89,12 +93,7 @@ public class Contact {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String toString() {
-		return "FirstName : " + firstName + "\nLastName : " + lastName + "\nAddress : " + address + "\nCity  : " + city
-				+ "\nState : " + state + "\nZip : " + zip + "\nPhone Number  : " + phoneNumber + "\nZip : " + zip;
-	}
-
+	
 	@Override
 	public boolean equals(Object object) {
 		if (object == this)
@@ -104,6 +103,12 @@ public class Contact {
 		Contact contact = (Contact) object;
 		return (this.getFirstName() + " " + this.getLastName())
 				.equals(contact.getFirstName() + " " + contact.getLastName());
+	}
+
+	@Override
+	public String toString() {
+		return "firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
+				+ ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email;
 	}
 
 }

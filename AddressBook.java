@@ -1,9 +1,13 @@
 package com.bridgelabz.addressBookProgram;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+	public static String path = "C:\\Users\\DELL\\eclipse-workspace\\AddressBookProgram\\src\\com\\bridgelabz\\addressBookProgram\\contacts-file.txt";
 
 	private List<Contact> contactList = new ArrayList<Contact>();
 
@@ -18,11 +22,65 @@ public class AddressBook {
 	// Method to add a contact
 	public boolean addContact(Contact obj) {
 		Contact contactObject = contactList.stream().filter(contact -> obj.equals(contact)).findAny().orElse(null);
-		if (contactObject == null)
+		if (contactObject == null) {
 			contactList.add(obj);
-		else
+			writeData(obj);
+		} else
 			return false;
 		return true;
+	}
+
+	// To write data to file
+	public void writeData(Contact obj) {
+		StringBuffer contactBuffer = new StringBuffer();
+		String contactDataString = obj.toString().concat("\n");
+		contactBuffer.append(contactDataString);
+		try {
+			Files.write(Paths.get(path), contactBuffer.toString().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// To read data from file
+	public Contact readData() {
+		Contact obj = new Contact();
+		try {
+			Files.lines(Paths.get(path)).map(line -> line.trim()).forEach(line -> {
+				String data = line.toString();
+				String[] dataArray = data.split(", ");
+				int index = 0;
+				while (index < dataArray.length) {
+					String firstName= dataArray[index].replace("firstName=", "");
+					index++;
+					String lastName = dataArray[index].replace("lastName=", "");
+					index++;
+					String address = dataArray[index].replace("address=", "");
+					index++;
+					String city = dataArray[index].replace("city=", "");
+					index++;
+					String state = dataArray[index].replace("state=", "");
+					index++;
+					int zip = Integer.parseInt(dataArray[index].replace("zip=", ""));
+					index++;
+					long phoneNumber = Long.parseLong(dataArray[index].replace("phoneNumber=", ""));
+					index++;
+					String email = dataArray[index].replace("email=", "");
+					obj.setFirstName(firstName);
+					obj.setLastName(lastName);
+					obj.setAddress(address);
+					obj.setCity(city);
+					obj.setState(state);
+					obj.setZip(zip);
+					obj.setPhoneNumber(phoneNumber);
+					obj.setEmail(email);
+					System.out.println(obj);
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 
 	// Method to edit a contact
@@ -78,8 +136,7 @@ public class AddressBook {
 
 	// Method to view contacts in sorted order by state
 	public List<Contact> sortByState() {
-		List<Contact> sortedList = contactList.stream()
-				.sorted((c1, c2) -> (c1.getState()).compareTo(c2.getState()))
+		List<Contact> sortedList = contactList.stream().sorted((c1, c2) -> (c1.getState()).compareTo(c2.getState()))
 				.collect(Collectors.toList());
 		return sortedList;
 	}
