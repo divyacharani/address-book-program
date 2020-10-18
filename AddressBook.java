@@ -43,44 +43,12 @@ public class AddressBook {
 	}
 
 	// To read data from file
-	public Contact readData() {
-		Contact obj = new Contact();
+	public void readData() {
 		try {
-			Files.lines(Paths.get(path)).map(line -> line.trim()).forEach(line -> {
-				String data = line.toString();
-				String[] dataArray = data.split(", ");
-				int index = 0;
-				while (index < dataArray.length) {
-					String firstName= dataArray[index].replace("firstName=", "");
-					index++;
-					String lastName = dataArray[index].replace("lastName=", "");
-					index++;
-					String address = dataArray[index].replace("address=", "");
-					index++;
-					String city = dataArray[index].replace("city=", "");
-					index++;
-					String state = dataArray[index].replace("state=", "");
-					index++;
-					int zip = Integer.parseInt(dataArray[index].replace("zip=", ""));
-					index++;
-					long phoneNumber = Long.parseLong(dataArray[index].replace("phoneNumber=", ""));
-					index++;
-					String email = dataArray[index].replace("email=", "");
-					obj.setFirstName(firstName);
-					obj.setLastName(lastName);
-					obj.setAddress(address);
-					obj.setCity(city);
-					obj.setState(state);
-					obj.setZip(zip);
-					obj.setPhoneNumber(phoneNumber);
-					obj.setEmail(email);
-					System.out.println(obj);
-				}
-			});
+			Files.lines(Paths.get(path)).map(line -> line.trim()).forEach(line -> System.out.println(line));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return obj;
 	}
 
 	// Method to edit a contact
